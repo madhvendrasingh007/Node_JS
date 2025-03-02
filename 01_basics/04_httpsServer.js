@@ -6,7 +6,7 @@ const myServer = http.createServer((req, res) => {
     const log = `${Date.now()}: ${req.url} New Request Received\n`;
 
     // Parse the URL from the incoming request
-    const myUrl = url.parse(req.url);
+    const myUrl = url.parse(req.url, true);
 
     console.log(myUrl)
 
@@ -17,14 +17,15 @@ const myServer = http.createServer((req, res) => {
         }
 
         // Switch based on the URL path
-        switch (req.url) {
+        switch (myUrl.pathname) {
             case '/':
                 res.writeHead(200, { 'Content-Type': 'text/plain' });
                 res.end('Homepage');
                 break;
             case '/about':
                 res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.end('About Us');
+                const username = myUrl.query.myname;
+                res.end(`Hi, ${usernae}`);
                 break;
             case '/contact':
                 res.writeHead(200, { 'Content-Type': 'text/plain' });
